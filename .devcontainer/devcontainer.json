@@ -1,0 +1,11 @@
+{
+	"name": "Codespaces Rust Starter",
+	"extensions": [
+		"matklad.rust-analyzer"
+	],
+	"dockerFile": "Dockerfile",
+	"settings": {
+		"editor.formatOnSave": true,
+		"terminal.integrated.shell.linux": "/bin/bash"
+	}
+}
