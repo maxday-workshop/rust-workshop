@@ -10,6 +10,6 @@ RUN pip3 install cargo-lambda
 ENV PATH=$PATH:/root/.cargo/bin/
 ENV DEPLOY_ROLE_ARN=arn:aws:iam::251861306739:role/duke-student-role
 ADD .aws /root/.aws
-ADD config.sh /root/config.sh
+ADD auth.sh /root/auth.sh
 
-ENTRYPOINT "/root/config.sh" && SUFFIX=$(tr -dc a-z </dev/urandom | head -c 20 ; echo '') "/bin/bash"
+ENTRYPOINT "/bin/bash"
