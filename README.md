@@ -12,7 +12,10 @@ cd hello-${CLOUDENV_ENVIRONMENT_ID}
 ```bash
 cargo lambda build
 ```
-
+# Authenticate
+```bash
+./auth.sh <SECRET>
+```
 # Deploy!
 ```bash
 cargo lambda deploy --iam-role $DEPLOY_ROLE_ARN
