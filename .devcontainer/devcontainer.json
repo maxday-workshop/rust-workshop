@@ -1,7 +1,8 @@
 {
 	"name": "Codespaces Rust Starter",
 	"extensions": [
-		"matklad.rust-analyzer"
+		"vadimcn.vscode-lldb",
+		"rust-lang.rust-analyzer"
 	],
 	"dockerFile": "Dockerfile",
 	"settings": {

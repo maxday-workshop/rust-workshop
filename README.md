@@ -15,7 +15,7 @@ cargo lambda build
 
 # Authenticate
 ```bash
-./auth.sh <SECRET>
+/root/auth.sh <SECRET>
 ```
 
 # Deploy!
