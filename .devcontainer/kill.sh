@@ -1,0 +1,1 @@
+kill -9 $(ps aux | grep watch | grep cargo | awk '{print $2}')
