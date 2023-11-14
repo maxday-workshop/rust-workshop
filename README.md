@@ -16,7 +16,8 @@ Open hello/xxx/src/main.rs
 ## Run a local server to run our Lambda function
 
 Open a new terminal clicking the '+'
-(todo add image)
+
+![architecture](new-terminal.png)
 
 Run cargo lambda watch
 ```bash
@@ -24,6 +25,11 @@ cd hello-${CLOUDENV_ENVIRONMENT_ID} && cargo lambda watch
 ```
 
 ## Invoke your function locally
+Go back to the first terminal
+
+![architecture](switch-terminal.png)
+
+and run
 ```bash 
 cargo lambda invoke --data-ascii '{ "message": "Hello from workshop!" }'
 ```
@@ -62,9 +68,19 @@ struct Pizza {
 }
 ```
 
+Add the corresponding import on the top of the file
+```rust
+use serde::Deserialize;
+```
+
 Finally, change the signature of the `func` from Value to Pizza
 ```rust
 async fn func(event: LambdaEvent<Pizza>) -> Result<Response, Error> {
+```
+
+You can now safely remove the used import
+```rust
+use serde_json::Value;
 ```
 
 Try invoking 
@@ -150,6 +166,13 @@ async fn func(event: LambdaEvent<Pizza>) -> Result<Response, Error> {
 }
 ```
 
+Make sure we havn't broken anything by invoking again your function locally
+
+```bash
+cargo lambda invoke --data-ascii '{ "name": "Veggie", "toppings" : ["green peppers", "onion", "tomatoes"] }'
+```
+
+
 ## Add our first unit test
 
 In Rust, logic and unit tests are located on the same file.
@@ -210,7 +233,7 @@ async fn test_func() {
         name: "test".to_string(),
         toppings: vec!["cheese".to_string(), "pepperoni".to_string()],
     };
-    let context = Context::default();
+    let context = lambda_runtime::Context::default();
     let le = LambdaEvent::new(payload, context);
     let result = func(le).await;
     assert!(result.is_ok());
@@ -218,10 +241,15 @@ async fn test_func() {
 }
 ```
 
+Re-run the tests
+```bash
+cargo test
+```
+
 # Step 5: Run code coverage
 
 Test coverage allows you to know which portion of the code is covered.
-It creates a report highlighing:
+It creates a report highlighing each line:
 - in green: what is covered
 - in red: what is not covered
 
@@ -233,5 +261,5 @@ grcov . -s src \
 --branch --ignore-not-existing -o ./target/debug/coverage/
 ```
 
-Finally go to `target/debug/coverage/html/main.rs.html`
+Finally go to `target/debug/coverage/main.rs.html`
 Right click and select `Download`
